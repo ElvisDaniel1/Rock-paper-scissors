@@ -44,19 +44,31 @@ function playRound(humanChoice, computerChoice) {
         msg = `You win! ${humanChoice} beats ${computerChoice}`;
         console.log(msg);
         humanScore++;
-        console.log(humanScore);
+        //console.log(humanScore);
     }
     else {
         msg = `You lose! ${computerChoice} beats ${humanChoice}`;
         console.log(msg);
         computerScore++;
-        console.log(computerScore);
+        //console.log(computerScore);
     }
         
 }
 
-//Get values for round
-const humanChoice = getHumanChoice(); 
-const computerChoice = getComputerChoice();
+function playGame() {
+    for (let i = 0; i < 5; i++) {
+        //Get values for round
+        const humanChoice = getHumanChoice(); 
+        const computerChoice = getComputerChoice();
 
-playRound(humanChoice, computerChoice);
+        playRound(humanChoice, computerChoice);
+    }
+    
+    if (humanScore > computerScore)
+        console.log("YOU'VE WON!😊!");
+    else
+        console.log("YOU'VE LOST!☹!");
+    
+}
+
+playGame();
