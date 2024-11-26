@@ -1,23 +1,5 @@
-let humanScore = 0;
-let computerScore = 0;
-
-function getComputerChoice() {
-    //Generate num between 0 and 2 incl
-    let num = Math.floor(Math.random() * 3);
-
-    //Choices
-    let choices = ["rock", "paper", "scissors"];
-
-    return (choices[num]);
-}
-
-function getHumanChoice() {
-    let userChoice = prompt("Rock, Paper, Scissors....SHOOT");
-    
-    return userChoice.toLowerCase();
-}
-
 function playRound(humanChoice, computerChoice) {
+    const results = document.querySelector(".results");
     //Rules 
     // Rock > Scissors      Scissors > Paper        Paper > Rock
 
@@ -26,7 +8,9 @@ function playRound(humanChoice, computerChoice) {
 
     // Handle draw
     if (humanChoice == computerChoice) {
-        console.log("Draw!");
+        
+        results.textContent = "Draw!";
+        //console.log("Draw!");
         return;
     }
         
@@ -42,33 +26,41 @@ function playRound(humanChoice, computerChoice) {
     let msg = "";
     if (wonRound) {
         msg = `You win! ${humanChoice} beats ${computerChoice}`;
-        console.log(msg);
-        humanScore++;
+        //console.log(msg);
+        results.textContent = msg;
+        //humanScore++;
         //console.log(humanScore);
     }
     else {
         msg = `You lose! ${computerChoice} beats ${humanChoice}`;
-        console.log(msg);
-        computerScore++;
+        //console.log(msg);
+        results.textContent = msg;
+        //computerScore++;
         //console.log(computerScore);
     }
         
 }
 
-function playGame() {
-    for (let i = 0; i < 5; i++) {
-        //Get values for round
-        const humanChoice = getHumanChoice(); 
+
+function getComputerChoice() {
+    //Generate num between 0 and 2 incl
+    let num = Math.floor(Math.random() * 3);
+
+    //Choices
+    let choices = ["rock", "paper", "scissors"];
+
+    return (choices[num]);
+}
+
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+
+        
+        const humanChoice = button.id;
         const computerChoice = getComputerChoice();
 
         playRound(humanChoice, computerChoice);
-    }
-    
-    if (humanScore > computerScore)
-        console.log("YOU'VE WON!😊!");
-    else
-        console.log("YOU'VE LOST!☹!");
-    
-}
-
-playGame();
+    });
+});
