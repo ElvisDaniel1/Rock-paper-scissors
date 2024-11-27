@@ -52,13 +52,24 @@ function getComputerChoice() {
     return (choices[num]);
 }
 
+function initGame() {
+    const score = document.querySelector(".score");
+    const round = document.querySelector("#round");
+
+    score.textContent = `Human Score: ${humanScore} Computer Score: ${computerScore}`;
+    round.textContent = `Round: 0`;
+
+}
+
 function endGame() {
     const results = document.querySelector("#results");
 
     if (humanScore > computerScore)
-        results.textContent = "YOU WON!!!!....GAME OVER😀";
+        alert("YOU WON!!!!....GAME OVER😀");
+        //results.textContent = "YOU WON!!!!....GAME OVER😀";
     else
-        results.textContent = "YOU LOSE!.....GAME OVER😢";
+        alert("YOU LOSE!.....GAME OVER😢");
+        //results.textContent = "YOU LOSE!.....GAME OVER😢";
         
 }
 
@@ -66,16 +77,11 @@ function playGame() {
     //Initialize buttons
     const score = document.querySelector(".score");
     const menu = document.querySelector("#menu");
+    const round = document.querySelector("#round");
     let timesClicked = 0; 
 
-
+    initGame();
     menu.addEventListener("click", (event) => {
-        // End game after 5 rounds
-        if (timesClicked == 4)
-        {
-            endGame();
-            return;
-        }
             
         // Play round
         let target = event.target;
@@ -85,10 +91,17 @@ function playGame() {
 
         playRound(userChoice, computerChoice);
 
-
         timesClicked++;
 
-        score.textContent = humanScore;
+        score.textContent = `Human Score: ${humanScore} Computer Score: ${computerScore}`;
+        round.textContent = `Round: ${timesClicked}`;
+
+        // End game after 5 rounds
+        if (humanScore == 5 || computerScore == 5)
+            {
+                endGame();
+                return;
+            }
     });
 
     
