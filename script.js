@@ -1,7 +1,10 @@
+let humanScore = 0;
+let computerScore = 0;
+
 function playRound(humanChoice, computerChoice) {
-    const results = document.querySelector(".results");
     //Rules 
     // Rock > Scissors      Scissors > Paper        Paper > Rock
+    const results = document.querySelector("#results");
 
     // Determine winner
     let wonRound = false;
@@ -10,7 +13,6 @@ function playRound(humanChoice, computerChoice) {
     if (humanChoice == computerChoice) {
         
         results.textContent = "Draw!";
-        //console.log("Draw!");
         return;
     }
         
@@ -26,19 +28,17 @@ function playRound(humanChoice, computerChoice) {
     let msg = "";
     if (wonRound) {
         msg = `You win! ${humanChoice} beats ${computerChoice}`;
-        //console.log(msg);
         results.textContent = msg;
-        //humanScore++;
+        humanScore++;
         //console.log(humanScore);
     }
     else {
         msg = `You lose! ${computerChoice} beats ${humanChoice}`;
-        //console.log(msg);
         results.textContent = msg;
-        //computerScore++;
+        computerScore++;
         //console.log(computerScore);
     }
-        
+    
 }
 
 
@@ -52,15 +52,51 @@ function getComputerChoice() {
     return (choices[num]);
 }
 
-const buttons = document.querySelectorAll("button");
+function endGame() {
+    const results = document.querySelector("#results");
 
-buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-
+    if (humanScore > computerScore)
+        results.textContent = "YOU WON!!!!....GAME OVER😀";
+    else
+        results.textContent = "YOU LOSE!.....GAME OVER😢";
         
-        const humanChoice = button.id;
+}
+
+function playGame() {
+    //Initialize buttons
+    const score = document.querySelector(".score");
+    const menu = document.querySelector("#menu");
+    let timesClicked = 0; 
+
+
+    menu.addEventListener("click", (event) => {
+        // End game after 5 rounds
+        if (timesClicked == 4)
+        {
+            endGame();
+            return;
+        }
+            
+        // Play round
+        let target = event.target;
+
+        const userChoice = target.id;
         const computerChoice = getComputerChoice();
 
-        playRound(humanChoice, computerChoice);
+        playRound(userChoice, computerChoice);
+
+
+        timesClicked++;
+
+        score.textContent = humanScore;
     });
-});
+
+    
+}
+
+//USE BUBBLING 
+
+playGame();
+
+
+
